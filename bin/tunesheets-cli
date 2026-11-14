@@ -1,0 +1,104 @@
+#!/usr/bin/env node
+/**
+ * tunesheets-cli v1.0.0
+ * Engraving-Grade Blank Sheet Music, Staff Rastral & Guitar Tab PDF Spec CLI
+ * Official reference utility for https://tunesheets.com
+ * License: MIT
+ */
+
+const ROUTES = [
+  {
+    "name": "TuneSheets Home",
+    "url": "https://tunesheets.com/"
+  },
+  {
+    "name": "Printable 5-Line Music Staff Paper PDF Generator",
+    "url": "https://tunesheets.com/staff-paper-pdf"
+  },
+  {
+    "name": "Blank Orchestral & Solo Manuscript Paper Sheets",
+    "url": "https://tunesheets.com/blank-manuscript-paper"
+  },
+  {
+    "name": "6-String Guitar Tablature (TAB) Blank Paper PDF",
+    "url": "https://tunesheets.com/guitar-tab-paper"
+  },
+  {
+    "name": "Blank Guitar Chord Diagram Grid Charts PDF",
+    "url": "https://tunesheets.com/blank-chord-chart"
+  },
+  {
+    "name": "Nashville Number System 12-Key Transposition Chart",
+    "url": "https://tunesheets.com/nashville-number-system-chart"
+  }
+];
+
+const SPECS = [
+  {
+    "Rastral Number": "Rastral #0 (Jumbo)",
+    "Total 5-Line Staff Height": "9.2 mm (26.08 pt)",
+    "Single Space (ss)": "2.30 mm (6.52 pt)",
+    "Staff Line Stroke": "0.18 mm (0.51 pt)",
+    "Standard Ensemble Application": "Early pedagogy & elementary piano"
+  },
+  {
+    "Rastral Number": "Rastral #2 (Choral/Solo)",
+    "Total 5-Line Staff Height": "7.9 mm (22.39 pt)",
+    "Single Space (ss)": "1.98 mm (5.60 pt)",
+    "Staff Line Stroke": "0.16 mm (0.45 pt)",
+    "Standard Ensemble Application": "Vocal lead sheets & solo instrumental"
+  },
+  {
+    "Rastral Number": "Rastral #3 (Standard)",
+    "Total 5-Line Staff Height": "7.0 mm (19.84 pt)",
+    "Single Space (ss)": "1.75 mm (4.96 pt)",
+    "Staff Line Stroke": "0.15 mm (0.43 pt)",
+    "Standard Ensemble Application": "Standard piano-vocal & chamber parts"
+  },
+  {
+    "Rastral Number": "Rastral #5 (Quartet)",
+    "Total 5-Line Staff Height": "6.0 mm (17.01 pt)",
+    "Single Space (ss)": "1.50 mm (4.25 pt)",
+    "Staff Line Stroke": "0.13 mm (0.37 pt)",
+    "Standard Ensemble Application": "Cue staves & compact transcriptions"
+  },
+  {
+    "Rastral Number": "6-String Guitar TAB",
+    "Total 5-Line Staff Height": "12.5 mm (6 lines)",
+    "Single Space (ss)": "2.50 mm string gap",
+    "Staff Line Stroke": "0.15 mm solid",
+    "Standard Ensemble Application": "Fret-number legibility without collisions"
+  }
+];
+
+const args = process.argv.slice(2);
+
+if (args.includes('--version') || args.includes('-v')) {
+  console.log('tunesheets-cli v1.0.0 (https://tunesheets.com)');
+  process.exit(0);
+}
+
+if (args.includes('--routes')) {
+  console.log(JSON.stringify({ domain: 'tunesheets.com', endpoints: ROUTES }, null, 2));
+  process.exit(0);
+}
+
+if (args.includes('--specs') || args.includes('--json')) {
+  console.log(JSON.stringify({ domain: 'tunesheets.com', benchmark: "Music Engraving Rastral Staff Sizes & Standard Manuscript Dimensions", rows: SPECS }, null, 2));
+  process.exit(0);
+}
+
+console.log([
+  'TuneSheets CLI (tunesheets-cli v1.0.0)',
+  'Engraving-Grade Blank Sheet Music, Staff Rastral & Guitar Tab PDF Spec CLI',
+  'Homepage: https://tunesheets.com',
+  '',
+  'Usage:',
+  '  tunesheets-cli --help       Show command overview and verified endpoints',
+  '  tunesheets-cli --version    Print CLI version',
+  '  tunesheets-cli --specs      Output domain technical specification matrix as JSON',
+  '  tunesheets-cli --routes     Output verified production URLs as JSON',
+  '',
+  'Verified Production Endpoints:',
+  ...ROUTES.map((r) => '  - ' + r.name + ': ' + r.url),
+].join('\n'));
